@@ -26,7 +26,7 @@ export default {
     },
 
     extend: {
-      ontFamily: {
+      fontFamily: {
         main: ["Koulen", "sans-serif"],
         primary: ["Lato", "sans-serif"],
       },

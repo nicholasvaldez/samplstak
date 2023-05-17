@@ -14,7 +14,7 @@ const Main = () => {
         >
           <div
             className="font-main font-weight-400 text-xl text-white "
-            style={{ marginTop: "180px", marginLeft: "67px" }}
+            style={{ paddingTop: "180px", marginLeft: "67px" }}
           >
             STEP INTO THE <br /> DRUM ROOM
           </div>
