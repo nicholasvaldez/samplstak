@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import myImage from "../../assets/main.png"
 import Button from "../util/Button"
-// import { NavBar } from "../nav/NavBar"
+import { NavBar } from "../nav/NavBar"
 // import "./main.css"
 
 const Main = () => {
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       <main>
         <div
           className="fixed h-screen w-screen bg-center bg-cover bg-image "
