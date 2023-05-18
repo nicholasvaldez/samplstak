@@ -1,4 +1,3 @@
-// import "./navbar.css"
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../assets/Logo.svg"
 import NavItem from "./NavItem"
