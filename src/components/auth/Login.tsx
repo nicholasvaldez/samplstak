@@ -2,6 +2,7 @@ import { FormEvent, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../managers/AuthManager"
 import logo from "../../assets/LoginLogo.svg"
+import FormInput from "./FormInput"
 
 export const Login = () => {
   const username = useRef<HTMLInputElement>(null)
@@ -41,29 +42,21 @@ export const Login = () => {
           <img src={`${logo}`} alt="Logo" />
         </div>
         <form className="form--login " onSubmit={handleLogin}>
-          <fieldset className="">
-            <input
-              ref={username}
-              type="username"
-              id="username"
-              name="username"
-              className="form-control pl-[10px] w-[405px] h-[43px] mb-[15px] rounded text-black"
-              placeholder="Username"
-              required
-              autoFocus
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              ref={password}
-              type="password"
-              id="password"
-              name="password"
-              className="form-control pl-[10px] w-[405px] h-[43px] rounded text-black"
-              placeholder="Password"
-              required
-            />
-          </fieldset>
+          <FormInput
+            ref={username}
+            type="username"
+            id="username"
+            name="username"
+            placeholder="Username"
+          />
+          <FormInput
+            ref={password}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          />
+
           <fieldset
             style={{
               textAlign: "center",
@@ -78,7 +71,7 @@ export const Login = () => {
           </fieldset>
         </form>
         <section className="link--register mt-20 ">
-          <Link to="/register" className="text-xs">
+          <Link to="/samplstak/register" className="text-xs">
             Not a member yet?
           </Link>
         </section>
