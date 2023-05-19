@@ -2,7 +2,9 @@ import { FormEvent, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../managers/AuthManager"
 import logo from "../../assets/LoginLogo.svg"
-import FormInput from "./FormInput"
+import FormInput from "../util/FormInput"
+import SubmitButton from "../util/SubmitButton"
+import AuthLogo from "../util/AuthLogo"
 
 export const Login = () => {
   const username = useRef<HTMLInputElement>(null)
@@ -38,9 +40,7 @@ export const Login = () => {
         </button>
       </dialog>
       <section className="flex justify-center flex-col items-center">
-        <div className="logo transform scale-[70%] mt-[50px] mb-[100px]">
-          <img src={`${logo}`} alt="Logo" />
-        </div>
+        <AuthLogo image={logo} />
         <form className="form--login " onSubmit={handleLogin}>
           <FormInput
             ref={username}
@@ -48,6 +48,7 @@ export const Login = () => {
             id="username"
             name="username"
             placeholder="Username"
+            width="w-[405px]"
           />
           <FormInput
             ref={password}
@@ -55,6 +56,7 @@ export const Login = () => {
             id="password"
             name="password"
             placeholder="Password"
+            width="w-[405px]"
           />
 
           <fieldset
@@ -62,12 +64,7 @@ export const Login = () => {
               textAlign: "center",
             }}
           >
-            <button
-              type="submit"
-              className="font-primary text-white font-bold bg-green rounded  ml-[0px] mt-[40px] h-[35px] w-[103px]"
-            >
-              Sign In
-            </button>
+            <SubmitButton text="Sign In" />
           </fieldset>
         </form>
         <section className="link--register mt-20 ">

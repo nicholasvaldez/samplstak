@@ -2,6 +2,9 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
 import logo from "../../assets/RegisterLogo.svg"
+import FormInput from "../util/FormInput"
+import SubmitButton from "../util/SubmitButton"
+import AuthLogo from "../util/AuthLogo"
 
 interface Props {
   username: string
@@ -66,15 +69,22 @@ export const Register = () => {
       getBase64(file, (base64imagestring) => {
         console.log("Base64 of file is", base64imagestring)
 
-        // Update the newUser state variable with the value of base64imagestring
-        setNewUser({
-          username: username.current?.value ?? "",
-          first_name: firstName.current?.value ?? "",
-          last_name: lastName.current?.value ?? "",
-          bio: bio.current?.value ?? "",
-          password: password.current?.value ?? "",
-          image: base64imagestring,
-        })
+        if (
+          username.current &&
+          firstName.current &&
+          lastName.current &&
+          bio.current &&
+          password.current !== null
+        ) {
+          setNewUser({
+            username: username.current.value,
+            first_name: firstName.current.value,
+            last_name: lastName.current.value,
+            bio: bio.current.value,
+            password: password.current.value,
+            image: base64imagestring,
+          })
+        }
       })
     }
   }
@@ -86,74 +96,52 @@ export const Register = () => {
         <button onClick={(e) => passwordDialog.current?.close()}>Close</button>
       </dialog>
       <section className="flex justify-center flex-col items-center">
-        <div className="logo transform scale-[70%] my-[50px]">
-          <img src={`${logo}`} alt="Logo" />
-        </div>
+        <AuthLogo image={logo} />
         <form onSubmit={handleRegister}>
           <div className="flex justify-between">
-            <fieldset>
-              <input
-                ref={firstName}
-                type="text"
-                name="firstName"
-                className="pl-[10px]  w-[190px] h-[43px] mb-[15px] rounded text-black"
-                placeholder="First name"
-                required
-                autoFocus
-              />
-            </fieldset>
-            <fieldset>
-              <input
-                ref={lastName}
-                type="text"
-                name="lastName"
-                className="pl-[10px]  w-[190px] h-[43px] mb-[15px] rounded text-black"
-                placeholder="Last name"
-                required
-              />
-            </fieldset>
+            <FormInput
+              ref={firstName}
+              type="text"
+              name="firstName"
+              width="w-[190px]"
+              placeholder="First Name"
+            />
+            <FormInput
+              ref={lastName}
+              type="text"
+              name="lastName"
+              width="w-[190px]"
+              placeholder="Last Name"
+            />
           </div>
-          <fieldset>
-            <input
-              ref={username}
-              type="text"
-              name="username"
-              className="pl-[10px]  w-[405px] h-[43px] mb-[15px] rounded text-black"
-              placeholder="Username"
-              required
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              ref={password}
-              type="password"
-              name="password"
-              className="pl-[10px]  w-[405px] h-[43px] mb-[15px] rounded text-black"
-              placeholder="Password"
-              required
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              ref={verifyPassword}
-              type="password"
-              name="verifyPassword"
-              className="pl-[10px]  w-[405px] h-[43px] mb-[15px] rounded text-black"
-              placeholder="Verify password"
-              required
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              ref={bio}
-              type="text"
-              name="bio"
-              className="pl-[10px]  w-[405px] h-[86px] mb-[15px] rounded text-black"
-              placeholder="Tell us about yourself!"
-              required
-            />
-          </fieldset>
-
+          <FormInput
+            ref={username}
+            type="text"
+            name="username"
+            width="w-[405px]"
+            placeholder=" Username"
+          />
+          <FormInput
+            ref={password}
+            type="text"
+            name="password"
+            width="w-[405px]"
+            placeholder="Password"
+          />
+          <FormInput
+            ref={verifyPassword}
+            type="text"
+            name="verifyPassword"
+            width="w-[405px]"
+            placeholder="Verify Password"
+          />
+          <FormInput
+            ref={bio}
+            type="text"
+            name="bio"
+            width="w-[405px]"
+            placeholder="Tell us a little bit about yourself!"
+          />
           <fieldset>
             <div className=" font-primary ">
               <input
@@ -164,25 +152,7 @@ export const Register = () => {
               <input type="hidden" name="producer_image" />
             </div>
           </fieldset>
-
-          <fieldset
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <button
-              type="submit"
-              className="font-primary text-white font-bold bg-green rounded"
-              style={{
-                marginLeft: "00px",
-                marginTop: "40px",
-                height: "35px",
-                width: "103px",
-              }}
-            >
-              Register
-            </button>
-          </fieldset>
+          <SubmitButton text="Register" />
         </form>
         <section className="link--register mt-10">
           Already registered? <Link to="/login">Login</Link>

@@ -1,12 +1,13 @@
 interface Props {
   ref: React.RefObject<HTMLInputElement>
   type: string
-  id: string
+  id?: string
   name: string
   placeholder: string
+  width: string
 }
 
-const FormInput = ({ ref, type, id, name, placeholder }: Props) => {
+const FormInput = ({ ref, type, id, name, placeholder, width }: Props) => {
   return (
     <fieldset>
       <input
@@ -14,9 +15,8 @@ const FormInput = ({ ref, type, id, name, placeholder }: Props) => {
         type={type}
         id={id}
         name={name}
-        className="form-control pl-[10px] w-[405px] h-[43px] rounded text-black my-4"
+        className={`form-control pl-[10px] ${width} h-[43px] rounded text-black my-2`}
         placeholder={placeholder}
-        required
       />
     </fieldset>
   )
