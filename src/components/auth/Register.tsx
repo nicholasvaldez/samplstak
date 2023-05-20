@@ -40,7 +40,7 @@ export const Register = () => {
     if (password.current?.value === verifyPassword.current?.value) {
       registerUser(newUser).then((res) => {
         if ("token" in res) {
-          localStorage.setItem("lu_token", res.token)
+          localStorage.setItem("ss_token", res.token)
           navigate("/samplstak/home")
         }
       })

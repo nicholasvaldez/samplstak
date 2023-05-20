@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom"
 import myImage from "../../assets/main.png"
 import Button from "../util/Button"
 import { NavBar } from "../nav/NavBar"
-// import "./main.css"
 
 const Main = () => {
   return (
