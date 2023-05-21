@@ -14,18 +14,23 @@ export const Login = () => {
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault()
-    const user = {
-      username: username.current!.value,
-      password: password.current!.value,
-    }
-    loginUser(user).then((res: any) => {
-      if ("valid" in res && res.valid && "token" in res) {
-        localStorage.setItem("ss_token", res.token)
-        navigate("home")
-      } else {
-        invalidDialog.current?.showModal()
+    const usernameValue = username.current?.value
+    const passwordValue = password.current?.value
+
+    if (usernameValue && passwordValue) {
+      const user = {
+        username: usernameValue,
+        password: passwordValue,
       }
-    })
+      loginUser(user).then((res: any) => {
+        if ("valid" in res && res.valid && "token" in res) {
+          localStorage.setItem("ss_token", res.token)
+          navigate("home")
+        } else {
+          invalidDialog.current?.showModal()
+        }
+      })
+    }
   }
 
   return (

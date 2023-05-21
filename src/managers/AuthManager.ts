@@ -4,7 +4,7 @@ interface Props {
 }
 
 export const loginUser = (user: Props) => {
-  return fetch("http://localhost:8000/login", {
+  return fetch("https://jellyfish-app-fo654.ondigitalocean.app/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export const loginUser = (user: Props) => {
 }
 
 export const registerUser = (user: Props) => {
-  return fetch("http://localhost:8000/register", {
+  return fetch("https://jellyfish-app-fo654.ondigitalocean.app/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
