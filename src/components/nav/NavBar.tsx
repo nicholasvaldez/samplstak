@@ -4,7 +4,7 @@ import NavItem from "./NavItem"
 
 export const NavBar: React.FC = () => {
   const navigate = useNavigate()
-  const isUserLoggedIn = localStorage.getItem("lu_token") !== null
+  const isUserLoggedIn = localStorage.getItem("ss_token") !== null
   return (
     <div className="bg-[#0b0101] fixed w-full z-10 h-[75px] flex justify-between items-center md:flex md:items-center md:justify-between shadow-xl ">
       <div className="logo ">
@@ -15,16 +15,16 @@ export const NavBar: React.FC = () => {
       {isUserLoggedIn ? (
         <>
           <ul className="md:flex md:items-center">
-            <NavItem link="browse" text="Browse" />
-            <NavItem link="collection" text="Collection" />
-            <NavItem link="drumkits" text="Drumkits" />
-            <NavItem link="mysounds" text="My Sounds" />
+            <NavItem link="/samplstak/browse" text="Browse" />
+            <NavItem link="/samplstak/collection" text="Collection" />
+            <NavItem link="/samplstak/drumkits" text="Drumkits" />
+            <NavItem link="/samplstak/mysounds" text="My Sounds" />
             <li className="logout-item text-white font-bold  mx-10">
               <button
                 className="nav-link fakeLink  px-6 py-2 rounded duration-500 hover:bg-[#170d0d]"
                 onClick={() => {
-                  localStorage.removeItem("lu_token")
-                  navigate("samplstak")
+                  localStorage.removeItem("ss_token")
+                  navigate("/samplstak")
                 }}
               >
                 Logout
@@ -36,7 +36,7 @@ export const NavBar: React.FC = () => {
         <>
           <ul>
             <li className="login-item text-white font-bold">
-              <Link className="nav-link mx-10" to="login">
+              <Link className="nav-link mx-10" to="/samplstak/login">
                 Login
               </Link>
             </li>

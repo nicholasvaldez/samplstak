@@ -13,7 +13,7 @@ export const ApplicationViews = () => {
         <Route path="samplstak/login" element={<Login />} />
         <Route path="samplstak/register" element={<Register />} />
         <Route element={<Authorized />}>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="samplstak/home" element={<HomePage />} />
         </Route>
       </Routes>
     </>
