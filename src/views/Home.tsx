@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { NavBar } from "../components/nav/NavBar"
 import myImage from "../assets/thagoat.png"
 import TopDrumkits from "../components/home/TopDrumkits"
+import Button from "../components/util/Button"
 
 export const HomePage = () => {
   return (
