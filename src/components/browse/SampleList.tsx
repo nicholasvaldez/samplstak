@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 // import { getGenres } from "../../managers/genres/Genres"
 // import { getInstruments } from "../../managers/instruments/Instruments"
@@ -9,78 +7,43 @@ import { useNavigate } from "react-router-dom"
 //   getSamples,
 // } from "../../managers/samples/SampleManager"
 import { NavBar } from "../nav/NavBar"
-import axios from "axios"
 import { Samples } from "./Samples"
-
-interface Sample {
-  id: number
-  file_url: string
-  file_name: string
-  instrument: Instrument
-  producer: Producer
-  drumkit: Drumkit
-}
-
-interface Instrument {
-  id: number
-  label: string
-}
-interface Drumkit {
-  id: number
-  image: string
-}
-
-interface Producer {
-  id: number
-  image: string
-}
+import useSamples from "../../hooks/useSamples"
+import useInstruments from "../../hooks/useInstruments"
+import { useEffect, useState } from "react"
+import { Sample } from "../../types/SampleTypes"
 
 export const SampleList = () => {
-  const [samples, setSamples] = useState<Sample[]>([])
-  /*   const [filteredSamples, setFilteredSamples] = useState([])
-  const [instruments, setInstruments] = useState([])
+  const { samples, error } = useSamples()
+  const instruments = useInstruments()
+  const [filteredSamples, setFilteredSamples] = useState<Sample[]>([])
   const [instId, setInstId] = useState("")
   const [genreId, setGenreId] = useState("")
-  const [genres, setGenres] = useState([]) */
+  const [genres, setGenres] = useState([])
   const navigate = useNavigate()
 
-  useEffect(() => {
-    axios
-      .get<Sample[]>(
-        "https://jellyfish-app-fo654.ondigitalocean.app/samples?random",
-        {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("ss_token")}`,
-          },
-        }
-      )
-      .then((res) => setSamples(res.data))
-  }, [])
-
-  /* useEffect(() => {
-    if (genreId !== "") {
-      getGenreSamples(genreId).then((data) => setFilteredSamples(data))
-    } else {
-      getRandomSamples().then((data) => setFilteredSamples(data))
-    }
-  }, [genreId])
+  // useEffect(() => {
+  //   if (genreId !== "") {
+  //     getGenreSamples(genreId).then((data) => setFilteredSamples(data))
+  //   } else {
+  //     getRandomSamples().then((data) => setFilteredSamples(data))
+  //   }
+  // }, [genreId])
 
   useEffect(() => {
     if (instId !== "") {
-      const filteredCopy = samples.filter((s) => s.instrument.id === instId)
+      const filteredCopy: Sample[] = samples.filter(
+        (s) => s.instrument.id === parseInt(instId)
+      )
       setFilteredSamples(filteredCopy)
     } else {
-      getRandomSamples().then((data) => setFilteredSamples(data))
+      setFilteredSamples(samples)
     }
-  }, [instId])
+  }, [instId, samples])
 
-  useEffect(() => {
-    getInstruments().then((data) => setInstruments(data))
-  }, [])
-
-  useEffect(() => {
-    getGenres().then((data) => setGenres(data))
-  }, []) */
+  // useEffect(() => {
+  //   getGenres().then((data) => setGenres(data))
+  // }, [])
 
   return (
     <>
@@ -94,24 +57,24 @@ export const SampleList = () => {
             <div>
               <select
                 className=" font-bold rounded text-[20px] p-2 bg-[#1E1B1B] font-primary text-white transition duration-500 ease-in-out hover:text-darkgrey hover:bg-green cursor-pointer"
-                // onChange={(evt) => {
-                //   const value = evt.target.value
-                //   if (value === "") {
-                //     setInstId("")
-                //     setFilteredSamples(samples)
-                //   } else {
-                //     setInstId(parseInt(value))
-                //   }
-                // }}
+                onChange={(evt) => {
+                  const value = evt.target.value
+                  if (value === "") {
+                    setInstId("")
+                    setFilteredSamples(samples)
+                  } else {
+                    setInstId(value)
+                  }
+                }}
               >
-                <option value="">{`instrument`}</option>
-                {/* {instruments.map((i) => (
+                <option value="">{`Instrument`}</option>
+                {instruments.map((i) => (
                   <>
-                    <option key={`instrument--${i.id}`} value={i.id}>
+                    <option key={i.label} value={i.id}>
                       {i.label}
                     </option>
                   </>
-                ))} */}
+                ))}
               </select>
             </div>
           </fieldset>
@@ -141,18 +104,22 @@ export const SampleList = () => {
         </div>
 
         <article className="samples max-h-[440px] rounded-xl overflow-y-auto">
-          {samples.map((s) => (
-            <Samples
-              id={s.id}
-              fileUrl={s.file_url}
-              fileName={s.file_name}
-              producer={s.producer.id}
-              instrument={s.instrument.label}
-              //   genre={s.genre.map((g) => g.label).join(", ")}
-              image={s.drumkit?.image || s.producer.image}
-              drumkitId={s?.drumkit?.id}
-            />
-          ))}
+          {filteredSamples.length === 0 ? (
+            <p>Loading...</p> // Render a loading state
+          ) : (
+            filteredSamples.map((s) => (
+              <Samples
+                key={s.id}
+                id={s.id}
+                fileUrl={s.file_url}
+                fileName={s.file_name}
+                producer={s.producer.id}
+                instrument={s.instrument.label}
+                image={s.drumkit?.image || s.producer.image}
+                drumkitId={s?.drumkit?.id}
+              />
+            ))
+          )}
         </article>
       </div>
     </>
