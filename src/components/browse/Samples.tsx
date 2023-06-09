@@ -34,12 +34,14 @@ export const Samples = ({
 
   const handleLogoClick = () => {
     if (!isPlaying) {
-      audioRef.current.currentTime = 0 // reset audio to beginning
-      audioRef.current.play()
-      setIsPlaying(true)
-    } else {
-      audioRef.current.pause()
-      setIsPlaying(false)
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0 // reset audio to beginning
+        audioRef.current.play()
+        setIsPlaying(true)
+      } else {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      }
     }
   }
   const handleAudioEnded = () => {

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 // } from "../../managers/samples/SampleManager"
 import { NavBar } from "../nav/NavBar"
 import axios from "axios"
-import { Sample, Samples } from "./Samples"
+import { Samples } from "./Samples"
 
 interface Sample {
   id: number
@@ -146,7 +146,7 @@ export const SampleList = () => {
               id={s.id}
               fileUrl={s.file_url}
               fileName={s.file_name}
-              producer={s.producer}
+              producer={s.producer.id}
               instrument={s.instrument.label}
               //   genre={s.genre.map((g) => g.label).join(", ")}
               image={s.drumkit?.image || s.producer.image}

@@ -41,7 +41,14 @@ const TopDrumkits = () => {
         <div className="text-white ml-[50px] ">
           <ol className="list-decimal   " style={{ listStyle: "initial" }}>
             {drumkits.slice(0, 3).map((dk) => {
-              return <DrumkitItem id={dk.id} image={dk.image} name={dk.name} />
+              return (
+                <DrumkitItem
+                  key={dk.id}
+                  id={dk.id}
+                  image={dk.image}
+                  name={dk.name}
+                />
+              )
             })}
           </ol>
         </div>
@@ -53,7 +60,14 @@ const TopDrumkits = () => {
             style={{ listStyle: "initial" }}
           >
             {drumkits.slice(3, 7).map((dk) => {
-              return <DrumkitItem id={dk.id} image={dk.image} name={dk.name} />
+              return (
+                <DrumkitItem
+                  key={dk.id}
+                  id={dk.id}
+                  image={dk.image}
+                  name={dk.name}
+                />
+              )
             })}
           </ol>
         </div>
