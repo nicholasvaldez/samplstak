@@ -16,6 +16,7 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="samplstak/home" element={<HomePage />} />
           <Route path="samplstak/browse" element={<SampleList />} />
+          {/* <Route path="samplstak/mysounds/new" element={<SampleForm />} /> */}
         </Route>
       </Routes>
     </>
