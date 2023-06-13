@@ -3,6 +3,7 @@ export interface Sample {
   file_url: string
   file_name: string
   instrument: Instrument
+  genre: Genre[]
   producer: Producer
   drumkit: Drumkit
 }
@@ -18,5 +19,11 @@ interface Drumkit {
 
 interface Producer {
   id: number
+  full_name: string
   image: string
+}
+
+interface Genre {
+  id: number
+  label: string
 }
