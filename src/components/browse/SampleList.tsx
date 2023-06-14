@@ -13,6 +13,7 @@ import useInstruments from "../../hooks/useInstruments"
 import { useEffect, useState } from "react"
 import { Sample } from "../../types/SampleTypes"
 import useGenres from "../../hooks/useGenres"
+import Dropdown from "./Dropdown"
 
 export const SampleList = () => {
   const [activeSamples, setActiveSamples] = useState<Sample[]>([])
@@ -24,6 +25,14 @@ export const SampleList = () => {
   const instruments = useInstruments()
   const genres = useGenres()
   // const genreFilteredSamples = useSamples(parseInt(genreId))
+
+  const handleSelect = (value: string) => {
+    if (instruments) {
+      setInstId(value)
+    } else if (genres) {
+      setGenreId(value)
+    }
+  }
 
   useEffect(() => {
     if (genreId !== "") {
@@ -54,38 +63,20 @@ export const SampleList = () => {
         <div className="drops flex justify-between w-[200px] mb-[70px]">
           <fieldset className="drops__field">
             <div>
-              <select
-                className=" font-bold rounded text-[20px] p-2 bg-[#1E1B1B] font-primary text-white transition duration-500 ease-in-out hover:text-darkgrey hover:bg-green cursor-pointer"
-                onChange={(evt) => {
-                  const value = evt.target.value
-                  setInstId(value)
-                }}
-              >
-                <option value="">{`Instrument`}</option>
-                {instruments.map((i) => (
-                  <option key={i.id} value={i.id}>
-                    {i.label}
-                  </option>
-                ))}
-              </select>
+              <Dropdown
+                options={instruments}
+                defaultOption="Instrument"
+                handleSelect={handleSelect}
+              />
             </div>
           </fieldset>
           <fieldset className="drops__field">
-            <div>
-              <select
-                className="text-white font-bold rounded text-[20px] p-2 bg-[#1E1B1B] ml-[15px] font-primary transition duration-500 ease-in-out hover:text-darkgrey hover:bg-green cursor-pointer"
-                onChange={(evt) => {
-                  const value = evt.target.value
-                  setGenreId(value)
-                }}
-              >
-                <option value="">{`Genre`}</option>
-                {genres.map((g) => (
-                  <option key={`genre--${g.id}`} value={g.id}>
-                    {g.label}
-                  </option>
-                ))}
-              </select>
+            <div className="ml-5">
+              <Dropdown
+                options={genres}
+                defaultOption="Genre"
+                handleSelect={handleSelect}
+              />
             </div>
           </fieldset>
         </div>
