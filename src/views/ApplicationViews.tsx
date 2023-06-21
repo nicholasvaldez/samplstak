@@ -4,7 +4,7 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
-import { SampleList } from "../components/browse/SampleList"
+import { Browse } from "../components/browse/Browse"
 
 export const ApplicationViews = () => {
   return (
@@ -15,8 +15,7 @@ export const ApplicationViews = () => {
         <Route path="samplstak/register" element={<Register />} />
         <Route element={<Authorized />}>
           <Route path="samplstak/home" element={<HomePage />} />
-          <Route path="samplstak/browse" element={<SampleList />} />
-          {/* <Route path="samplstak/mysounds/new" element={<SampleForm />} /> */}
+          <Route path="samplstak/browse" element={<Browse />} />
         </Route>
       </Routes>
     </>
