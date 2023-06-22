@@ -3,15 +3,12 @@ import { Sample } from "../../types/SampleTypes"
 import { Samples } from "./Samples"
 import {
   getGenreSamples,
+  getInstrumentSamples,
   getRandomSamples,
 } from "../../managers/samples/SampleManager"
 import { getGenres } from "../../managers/genres/Genre"
 import Dropdown from "./Dropdown"
-
-interface Genre {
-  id: number
-  label: string
-}
+import { getinstruments } from "../../managers/instruments/Instruments"
 
 const SampleList = () => {
   const [activeSamples, setActiveSamples] = useState<Sample[]>([])
@@ -19,12 +16,13 @@ const SampleList = () => {
   const [genres, setGenres] = useState([])
   const [selectedGenre, setSelectedGenre] = useState("")
 
-  useEffect(() => {
-    getRandomSamples().then((data) => setActiveSamples(data))
-  }, [])
+  const [instruments, setInstruments] = useState([])
+  const [selectedInstrument, setSelectedInstrument] = useState("")
 
   useEffect(() => {
+    getRandomSamples().then((data) => setActiveSamples(data))
     getGenres().then((data) => setGenres(data))
+    getinstruments().then((data) => setInstruments(data))
   }, [])
 
   const handleGenreSelect = (genreId: string) => {
@@ -36,8 +34,27 @@ const SampleList = () => {
     }
   }
 
+  const handleInstrumentSelect = (instrumendId: string) => {
+    if (instrumendId !== "") {
+      setSelectedGenre(instrumendId)
+      getInstrumentSamples(parseInt(instrumendId)).then((data) =>
+        setActiveSamples(data)
+      )
+    } else {
+      getRandomSamples().then((data) => setActiveSamples(data))
+    }
+  }
+
   return (
     <>
+      <div className="ml-5 mb-10 ">
+        <Dropdown
+          options={instruments}
+          defaultOption="Instrument"
+          handleSelect={handleInstrumentSelect}
+          defaultValue=""
+        />
+      </div>
       <div className="ml-5 mb-10 ">
         <Dropdown
           options={genres}
