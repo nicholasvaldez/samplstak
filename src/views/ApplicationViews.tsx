@@ -5,6 +5,7 @@ import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
 import { Browse } from "../components/browse/Browse"
+import { CollectionList } from "../components/collection/CollectionList"
 
 export const ApplicationViews = () => {
   return (
@@ -16,6 +17,7 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="samplstak/home" element={<HomePage />} />
           <Route path="samplstak/browse" element={<Browse />} />
+          <Route path="samplstak/collection" element={<CollectionList />} />
         </Route>
       </Routes>
     </>

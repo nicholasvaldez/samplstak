@@ -23,7 +23,7 @@ export const Login = () => {
         password: passwordValue,
       }
       loginUser(user).then((res: any) => {
-        if ("valid" in res && res.valid && "token" in res) {
+        if (res && "valid" in res && res.valid && "token" in res) {
           localStorage.setItem("ss_token", res.token)
           navigate("/samplstak/home")
         } else {
