@@ -8,7 +8,7 @@ export const NavBar: React.FC = () => {
   return (
     <div className="bg-[#0b0101] fixed w-full z-10 h-[75px] flex justify-between items-center md:flex md:items-center md:justify-between shadow-xl ">
       <div className="logo ">
-        <Link className="navbar__link text-white" to="/home">
+        <Link className="navbar__link text-white" to="/samplstak/home">
           <img className="w-[280px] static" src={`${logo}`} alt="Logo" />
         </Link>
       </div>

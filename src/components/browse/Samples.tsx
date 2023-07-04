@@ -1,8 +1,6 @@
-// import { addToCollection } from "../../managers/samples/Collection"
 import { FaPlay, FaStop } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
 import { MdRemoveCircleOutline } from "react-icons/md"
-
 import { useEffect, useRef, useState } from "react"
 import { Sample } from "../../types/SampleTypes"
 import {
@@ -25,7 +23,7 @@ interface Props {
 }
 
 export const Samples = ({ sample, title, trueId }: Props) => {
-  const audioRef = useRef()
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [image, setImage] = useState("")
   const [actualSample, setActualSample] = useState<Sample | null>(null)
@@ -50,6 +48,9 @@ export const Samples = ({ sample, title, trueId }: Props) => {
   }, [drumkit, producer])
 
   const handleAddToCollection = () => {
+    if (id === undefined) {
+      return console.log("Add to collection Failed")
+    }
     addToCollection({ sample: id })
     window.alert(`${file_name} has been added to your Collection!`)
   }
@@ -70,13 +71,17 @@ export const Samples = ({ sample, title, trueId }: Props) => {
     setIsPlaying(false)
   }
 
-  const file = "https://jellyfish-app-fo654.ondigitalocean.app" + file_url
-  const imgFile = "https://jellyfish-app-fo654.ondigitalocean.app" + image
+  const file = file_url
+    ? "https://jellyfish-app-fo654.ondigitalocean.app" + file_url
+    : ""
+  const imgFile = image
+    ? "https://jellyfish-app-fo654.ondigitalocean.app" + image
+    : ""
 
   return (
     <section
       key={`sample--${id}`}
-      className="sample font-primary w-[1300px] h-[90px] grid grid-cols-9 gap-4  flex items-center bg-[#1E1B1B] text-white mb-[5px] transition duration-500 ease-in-out hover:bg-[#252525] cursor-pointer "
+      className="sample font-primary w-[1300px] h-[90px] grid grid-cols-9 gap-4 items-center bg-[#1E1B1B] text-white mb-[5px] transition duration-500 ease-in-out hover:bg-[#252525] cursor-pointer "
     >
       <div className="col-start-1">
         {drumkit ? (
