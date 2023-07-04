@@ -4,8 +4,8 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
-import { Browse } from "../components/browse/Browse"
-import { CollectionList } from "../components/collection/CollectionList"
+
+import { View } from "../components/View"
 
 export const ApplicationViews = () => {
   return (
@@ -16,8 +16,11 @@ export const ApplicationViews = () => {
         <Route path="samplstak/register" element={<Register />} />
         <Route element={<Authorized />}>
           <Route path="samplstak/home" element={<HomePage />} />
-          <Route path="samplstak/browse" element={<Browse />} />
-          <Route path="samplstak/collection" element={<CollectionList />} />
+          <Route path="samplstak/browse" element={<View title="Browse" />} />
+          <Route
+            path="samplstak/collection"
+            element={<View title="Collection" />}
+          />
         </Route>
       </Routes>
     </>

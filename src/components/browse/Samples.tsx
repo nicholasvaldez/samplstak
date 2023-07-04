@@ -1,31 +1,57 @@
 // import { addToCollection } from "../../managers/samples/Collection"
 import { FaPlay, FaStop } from "react-icons/fa"
 import { AiOutlinePlus } from "react-icons/ai"
+import { MdRemoveCircleOutline } from "react-icons/md"
+
 import { useEffect, useRef, useState } from "react"
 import { Sample } from "../../types/SampleTypes"
+import {
+  addToCollection,
+  removeFromCollection,
+} from "../../managers/samples/Collection"
 
-interface Props {
+interface CollectionSample {
+  id: number
+  producer: number
   sample: Sample
 }
 
-export const Samples = ({ sample }: Props) => {
-  const { id, file_url, file_name, producer, instrument, genre, drumkit } =
-    sample
+type SampleOrCollectionSample = Sample | CollectionSample
+
+interface Props {
+  title: string
+  sample: SampleOrCollectionSample
+  trueId: number
+}
+
+export const Samples = ({ sample, title, trueId }: Props) => {
   const audioRef = useRef()
   const [isPlaying, setIsPlaying] = useState(false)
   const [image, setImage] = useState("")
+  const [actualSample, setActualSample] = useState<Sample | null>(null)
 
   useEffect(() => {
-    if (drumkit !== null) {
+    setActualSample(
+      title === "Collection"
+        ? (sample as CollectionSample).sample
+        : (sample as Sample)
+    )
+  }, [sample, title])
+
+  const { id, file_url, file_name, producer, instrument, genre, drumkit } =
+    actualSample || {}
+
+  useEffect(() => {
+    if (drumkit && drumkit.image) {
       setImage(drumkit.image)
-    } else {
+    } else if (producer && producer.image) {
       setImage(producer.image)
     }
-  }, [drumkit])
+  }, [drumkit, producer])
 
   const handleAddToCollection = () => {
-    window.alert(`${file_name} has been added to your Collection!`)
     addToCollection({ sample: id })
+    window.alert(`${file_name} has been added to your Collection!`)
   }
 
   const handleLogoClick = () => {
@@ -97,20 +123,35 @@ export const Samples = ({ sample }: Props) => {
       </h2>
       <div className="sample__url col-start-3 col-span-3">{file_name}</div>
 
-      <div className="sample__instrument">{instrument.label}</div>
+      <div className="sample__instrument">{instrument?.label}</div>
       <div className="sample__genre">
-        {genre.map((g) => (
-          <span key={g.id}>{g.label + "/ "}</span>
-        ))}
+        {genre ? (
+          genre.map((g) => <span key={g.id}>{g.label + "/ "}</span>)
+        ) : (
+          <p>no genres</p>
+        )}
       </div>
-      <button
-        className="button text-slate flex justify-center font-extrabold text-[30px] "
-        onClick={() => {
-          handleAddToCollection()
-        }}
-      >
-        <AiOutlinePlus />
-      </button>
+      {title === "Collection" ? (
+        <button
+          className="button text-white flex justify-center text-[25px] transition duration-500 ease-in-out hover:text-green cursor-pointer"
+          onClick={() =>
+            removeFromCollection(trueId).then(() => {
+              window.location.reload()
+            })
+          }
+        >
+          <MdRemoveCircleOutline />
+        </button>
+      ) : (
+        <button
+          className="button text-slate flex justify-center font-extrabold text-[30px] "
+          onClick={() => {
+            handleAddToCollection()
+          }}
+        >
+          <AiOutlinePlus />
+        </button>
+      )}
     </section>
   )
 }
