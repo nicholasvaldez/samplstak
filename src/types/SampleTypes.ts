@@ -17,13 +17,13 @@ interface Drumkit {
   image: string
 }
 
-interface Producer {
+export interface Producer {
   id: number
   full_name: string
   image: string
 }
 
-interface Genre {
+export interface Genre {
   id: number
   label: string
 }
