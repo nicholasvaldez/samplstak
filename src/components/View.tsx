@@ -2,6 +2,7 @@ import MySounds from "./mysounds/MySounds"
 import SampleList from "./browse/SampleList"
 import { NavBar } from "./nav/NavBar"
 import MySoundsHeader from "./mysounds/MySoundsHeader"
+import DrumkitsList from "./drumkits/DrumkitsList"
 
 interface Props {
   title: string
@@ -19,13 +20,17 @@ export const View = ({ title }: Props) => {
             {title}.
           </div>
         )}
-        {title !== "My Sounds" ? (
+        {title === "My Sounds" ? (
           <div>
-            <SampleList title={title} />
+            <MySounds title={title} />
+          </div>
+        ) : title === "Drumkits" ? (
+          <div>
+            <DrumkitsList title={title} />
           </div>
         ) : (
           <div>
-            <MySounds title={title} />
+            <SampleList title={title} />
           </div>
         )}
       </div>

@@ -8,3 +8,12 @@ export const getMySoundsSamples = () => {
     }
   ).then((response) => response.json())
 }
+
+export const deleteSample = (id?: number) => {
+  return fetch(`https://jellyfish-app-fo654.ondigitalocean.app/samples/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("ss_token")}`,
+    },
+  })
+}
