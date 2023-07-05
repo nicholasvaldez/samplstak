@@ -12,7 +12,7 @@ interface Instrument {
   id: number
   label: string
 }
-interface Drumkit {
+export interface Drumkit {
   id: number
   image: string
 }

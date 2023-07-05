@@ -21,6 +21,10 @@ export const ApplicationViews = () => {
             path="samplstak/collection"
             element={<View title="Collection" />}
           />
+          <Route
+            path="samplstak/mysounds"
+            element={<View title="My Sounds" />}
+          />
         </Route>
       </Routes>
     </>
