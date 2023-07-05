@@ -12,12 +12,12 @@ function Drumkit({ id, image, name, genreLabel }: Props) {
   const navigate = useNavigate()
 
   return (
-    <div key={`card--${id}`} className="w-[130px] h-[173px] w-1/6 ">
+    <div key={`card--${id}`} className="h-[173px] w-1/6 ">
       <div
         key={`container--${id}`}
         className="w-[130px] h-[130px]  cursor-pointer "
         onClick={() => {
-          navigate(`/drumkits/detail/${id}`)
+          navigate(`/samplstak/drumkits/detail/${id}`)
         }}
       >
         <img key={`image--${id}`} src={img}></img>

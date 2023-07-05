@@ -5,5 +5,5 @@ export interface DrumkitType {
   name: string
   producer: Producer
   image: string
-  genre: Genre[]
+  genre: Genre
 }

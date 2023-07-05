@@ -4,9 +4,7 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
-
 import { View } from "../components/View"
-import DrumkitsView from "../components/drumkits/DrumkitsList"
 
 export const ApplicationViews = () => {
   return (

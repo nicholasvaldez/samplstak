@@ -3,9 +3,7 @@ import { getDrumkits } from "../../managers/drumkits/DrumkitManager"
 import Drumkit from "./Drumkit"
 import { DrumkitType } from "../../types/DrumkitTypes"
 
-type Props = {}
-
-function DrumkitsList({}: Props) {
+function DrumkitsList() {
   const [drumkits, setDrumkits] = useState<DrumkitType[]>([])
 
   useEffect(() => {

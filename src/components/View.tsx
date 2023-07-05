@@ -26,7 +26,7 @@ export const View = ({ title }: Props) => {
           </div>
         ) : title === "Drumkits" ? (
           <div>
-            <DrumkitsList title={title} />
+            <DrumkitsList />
           </div>
         ) : (
           <div>
