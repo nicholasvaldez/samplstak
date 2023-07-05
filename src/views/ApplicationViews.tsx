@@ -6,6 +6,7 @@ import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
 
 import { View } from "../components/View"
+import DrumkitsView from "../components/drumkits/DrumkitsList"
 
 export const ApplicationViews = () => {
   return (
@@ -24,6 +25,10 @@ export const ApplicationViews = () => {
           <Route
             path="samplstak/mysounds"
             element={<View title="My Sounds" />}
+          />
+          <Route
+            path="samplstak/drumkits"
+            element={<View title="Drumkits" />}
           />
         </Route>
       </Routes>

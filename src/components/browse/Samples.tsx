@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import SampleImage from "../util/SampleImage"
 import SamplePlayButton from "../util/SamplePlayButton"
+import { deleteSample } from "../../managers/my sounds/MySoundsManager"
 
 interface CollectionSample {
   id: number
@@ -84,7 +85,7 @@ export const Samples = ({ sample, title, trueId }: Props) => {
       ) : title === "My Sounds" ? (
         <>
           <button
-            className="lg:block hidden button text-white flex justify-center text-[25px] transition duration-500 ease-in-out hover:text-green cursor-pointer"
+            className="lg:block hidden button text-white justify-center text-[25px] transition duration-500 ease-in-out hover:text-green cursor-pointer"
             onClick={() => {
               navigate(`/samplstak/mysounds/edit/${id}`)
             }}
@@ -92,7 +93,7 @@ export const Samples = ({ sample, title, trueId }: Props) => {
             <AiOutlineEdit />
           </button>
           <button
-            className="lg:block hidden button text-white flex justify-center text-[25px] transition duration-500 ease-in-out hover:text-green cursor-pointer"
+            className="lg:block hidden button text-white justify-center text-[25px] transition duration-500 ease-in-out hover:text-green cursor-pointer"
             onClick={() =>
               deleteSample(id).then(() => {
                 window.location.reload()
