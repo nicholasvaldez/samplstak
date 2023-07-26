@@ -2,11 +2,7 @@ import { useState } from "react"
 import { NavBar } from "../nav/NavBar"
 import { useNavigate, useParams } from "react-router-dom"
 
-type Props = {
-  token: string
-}
-
-function MySoundsForm({ token }: Props) {
+function MySoundsForm() {
   const navigate = useNavigate()
   const { sampleId } = useParams()
 
