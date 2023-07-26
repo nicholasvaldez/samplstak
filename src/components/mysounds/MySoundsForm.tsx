@@ -1,6 +1,9 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { NavBar } from "../nav/NavBar"
 import { useNavigate, useParams } from "react-router-dom"
+import { getInstruments } from "../../managers/instruments/Instruments"
+import { Sample } from "../../types/SampleTypes"
+import { Instrument } from "../../types/InstrumentTypes"
 
 interface Props {
   token: string
@@ -8,18 +11,19 @@ interface Props {
 
 function MySoundsForm({ token }: Props) {
   const [file, setFile] = useState<File | undefined>(undefined)
+  const [instrument, setInstruments] = useState<Instrument[]>([])
 
   const navigate = useNavigate()
   const { sampleId } = useParams()
 
-  const [currentSample, setCurrentSample] = useState({
+  const [currentSample, setCurrentSample] = useState<Sample>({
     id: 0,
-    producer: parseInt(token),
+    producer: { id: parseInt(token), full_name: "", image: "" },
     file_url: "",
     file_name: "",
-    instrument: 0,
+    instrument: { id: 0, label: "" },
     genre: [],
-    drumkit: null,
+    drumkit: { id: 0, image: "" },
   })
 
   const getBase64 = (
@@ -54,6 +58,20 @@ function MySoundsForm({ token }: Props) {
     setFile(files[0])
   }
 
+  useEffect(() => {
+    getInstruments().then((data) => {
+      setInstruments(data)
+    })
+  }, [])
+
+  const handleNewPostInfo = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setCurrentSample((prevSample) => ({
+      ...prevSample,
+      [name]: value,
+    }))
+  }
+
   return (
     <>
       <>
@@ -78,6 +96,19 @@ function MySoundsForm({ token }: Props) {
               />
               <input type="hidden" name="sample_id" value={currentSample.id} />
             </div>
+            <select
+              name="instrument"
+              className="form-control text-black w-[190px] h-[43px] my-[15px] font-primary rounded"
+              value={currentSample.instrument.id}
+              onChange={handleNewPostInfo}
+            >
+              <option value={0}>Instrument</option>
+              {instrument.map((i) => (
+                <option key={`instrument--${i.id}`} value={i.id}>
+                  {i.label}
+                </option>
+              ))}
+            </select>
           </div>
         </main>
       </>
