@@ -7,7 +7,11 @@ import { HomePage } from "./Home"
 import { View } from "../components/View"
 import MySoundsForm from "../components/mysounds/MySoundsForm"
 
-export const ApplicationViews = () => {
+interface Props {
+  token: string
+}
+
+export const ApplicationViews = ({ token }: Props) => {
   return (
     <>
       <Routes>

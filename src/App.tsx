@@ -14,7 +14,7 @@ const SamplStak = () => {
     localStorage.setItem("ss_token", newToken) // <-- Sets ss_token to newToken, ss_token: newToken
     setTokenState(newToken)
   }
-  return <ApplicationViews />
+  return <ApplicationViews token={token} />
 }
 
 export default SamplStak
