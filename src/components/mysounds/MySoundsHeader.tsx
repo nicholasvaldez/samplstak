@@ -19,7 +19,7 @@ function MySoundsHeader({ title }: Props) {
           </div>
         </Link>
       </div>
-      <a href={"/mysounds/new"}>
+      <a href={"mysounds/new"}>
         <h1 className="plus text-[50px] mt-[15px]">
           <AiOutlinePlus />
         </h1>

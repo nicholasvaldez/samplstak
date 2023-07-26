@@ -5,6 +5,7 @@ import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { HomePage } from "./Home"
 import { View } from "../components/View"
+import MySoundsForm from "../components/mysounds/MySoundsForm"
 
 export const ApplicationViews = () => {
   return (
@@ -28,6 +29,7 @@ export const ApplicationViews = () => {
             path="samplstak/drumkits"
             element={<View title="Drumkits" />}
           />
+          <Route path="samplstak/mysounds/new" element={<MySoundsForm />} />
         </Route>
       </Routes>
     </>
