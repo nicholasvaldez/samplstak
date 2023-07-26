@@ -2,8 +2,9 @@ import { ChangeEvent, useEffect, useState } from "react"
 import { NavBar } from "../nav/NavBar"
 import { useNavigate, useParams } from "react-router-dom"
 import { getInstruments } from "../../managers/instruments/Instruments"
-import { Sample } from "../../types/SampleTypes"
+import { Genre, Sample } from "../../types/SampleTypes"
 import { Instrument } from "../../types/InstrumentTypes"
+import { getGenres } from "../../managers/genres/Genre"
 
 interface Props {
   token: string
@@ -12,9 +13,17 @@ interface Props {
 function MySoundsForm({ token }: Props) {
   const [file, setFile] = useState<File | undefined>(undefined)
   const [instrument, setInstruments] = useState<Instrument[]>([])
+  const [genres, setGenres] = useState<Genre[]>([])
+  const [sampGenres, setSampGenres] = useState(new Set())
 
   const navigate = useNavigate()
   const { sampleId } = useParams()
+
+  const genArr = (genId: number) => {
+    let copy = new Set(sampGenres)
+    copy.has(genId) ? copy.delete(genId) : copy.add(genId)
+    setSampGenres(copy)
+  }
 
   const [currentSample, setCurrentSample] = useState<Sample>({
     id: 0,
@@ -64,6 +73,12 @@ function MySoundsForm({ token }: Props) {
     })
   }, [])
 
+  useEffect(() => {
+    getGenres().then((data) => {
+      setGenres(data)
+    })
+  }, [])
+
   const handleNewPostInfo = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target
     setCurrentSample((prevSample) => ({
@@ -109,6 +124,27 @@ function MySoundsForm({ token }: Props) {
                 </option>
               ))}
             </select>
+            <div className="field flex flex-row flex-wrap w-[200px] justify-evenly">
+              {genres.map((g) => {
+                const foundGenre = currentSample.genre.find(
+                  (sampleGenre) => g.id === sampleGenre.id
+                )
+
+                return (
+                  <div key={`genre--${g.id}`}>
+                    <input
+                      className="font-primary font mr-[10px] "
+                      type="checkbox"
+                      name={g.label}
+                      defaultChecked={!!foundGenre}
+                      onClick={() => genArr(g.id)}
+                    />
+                    <label htmlFor={g.label}>{g?.label}</label>
+                    <br />
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </main>
       </>
