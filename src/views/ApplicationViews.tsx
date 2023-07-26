@@ -33,7 +33,10 @@ export const ApplicationViews = ({ token }: Props) => {
             path="samplstak/drumkits"
             element={<View title="Drumkits" />}
           />
-          <Route path="samplstak/mysounds/new" element={<MySoundsForm />} />
+          <Route
+            path="samplstak/mysounds/new"
+            element={<MySoundsForm token={token} />}
+          />
         </Route>
       </Routes>
     </>
