@@ -3,6 +3,8 @@ import { NavBar } from "../nav/NavBar"
 import { PostSample, Sample } from "../../types/SampleTypes"
 import { addNewSample } from "../../managers/my sounds/MySoundsManager"
 import { useNavigate } from "react-router-dom"
+import { Instrument } from "../../types/InstrumentTypes"
+import FormInstrument from "./FormInstrument"
 
 interface File {
   name: string
@@ -16,6 +18,7 @@ function MySoundsForm({ token }: Props) {
   const navigate = useNavigate()
 
   const [file, setFile] = useState<File>()
+  const [selectedInstrument, setSelectedInstrument] = useState<number>(0)
   const [currentSample, setCurrentSample] = useState<PostSample>({
     file_url: "",
     file_name: "",
@@ -23,6 +26,10 @@ function MySoundsForm({ token }: Props) {
     genre: [],
     drumkit: { id: 0, image: "", name: "" },
   })
+
+  const handleInstrumentChange = (value: number) => {
+    setSelectedInstrument(value)
+  }
 
   const wrapperFunc = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -48,22 +55,21 @@ function MySoundsForm({ token }: Props) {
             />
             <input type="hidden" name="sample_id" />
           </div>
+          <FormInstrument
+            selectedInstrument={selectedInstrument}
+            onInstrumentChange={handleInstrumentChange}
+          />
           <button
             type="submit"
-            className="font-primary text-white font-bold bg-green rounded"
-            style={{
-              marginLeft: "40px",
-              marginTop: "40px",
-              height: "35px",
-              width: "103px",
-            }}
+            className=" text-white font-bold bg-green p-1 px-5 rounded "
             onClick={(evt) => {
               evt.preventDefault()
               const sample = {
                 file_url: currentSample.file_url,
                 file_name: file?.name,
+                instrument: { id: selectedInstrument, label: "" },
               }
-              addNewSample(sample).then(() => navigate("/mysounds"))
+              addNewSample(sample).then(() => navigate("samplstak/mysounds"))
             }}
           >
             Submit
