@@ -16,3 +16,14 @@ export const getDrumkitSamples = (id: number) => {
     }
   ).then((response) => response.json())
 }
+
+export const getProducerDrumkits = () => {
+  return fetch(
+    "https://jellyfish-app-fo654.ondigitalocean.app/drumkits?producer",
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("ss_token")}`,
+      },
+    }
+  ).then((response) => response.json())
+}
